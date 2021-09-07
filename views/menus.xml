@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Top Menu -->
+        <menuitem name="Workfolio Integration"
+            id="menu_action_workfolio_integration"
+            web_icon="daffodil_workfolio_integration,static/src/img/icon.png"
+            sequence="10" />
+
+        <!-- Menu -->
+        <menuitem name="Team"
+            id="menu_action_workfolio_integration_team"
+            action="action_wf_team_view"
+            parent="menu_action_workfolio_integration"
+            sequence="1" />
+
+    </data>
+</odoo>
