@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError, except_orm, UserError
 import calendar
 import math
 import re
+import requests
 
 
 class WorkfolioTeam(models.Model):
@@ -24,12 +25,30 @@ class WorkfolioTeam(models.Model):
     def create(self, vals):
         vals['code'] = self.env['ir.sequence'].next_by_code('wf.team')
         res = super(WorkfolioTeam, self).create(vals)
-        print("I am not working")
-        print(vals['code'])
         return res
 
-    # @api.model
-    # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
-    #     res = super(ChrimsAccountGroup, self).fields_view_get(view_id=view_id, view_type=view_type,
-    #                                                           toolbar=toolbar, submenu=submenu)
-    #     return res
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='tree', toolbar=False, submenu=False):
+        res = super(WorkfolioTeam, self).fields_view_get(view_id=view_id, view_type=view_type,
+                                                              toolbar=toolbar, submenu=submenu)
+
+        # for checking team is updated or not and create team if its not updated
+        if res['name'] == 'wf.team.tree.view':
+
+            team_header = {'Authorization' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
+
+            url = 'https://api.workfolio.io/team'
+
+            response = requests.get(url, headers=team_header)
+
+            for data in response.json():
+
+                team_info = dict()
+                team_info['workfolio_team_id'] = data['teamId']
+                team_info['name'] = data['teamName']
+
+                bool_team = self.env['wf.team'].sudo().search([('workfolio_team_id', '=', data['teamId'])])
+                if not bool_team:
+                    self.env['wf.team'].sudo().create(team_info)
+
+        return res
