@@ -39,16 +39,19 @@ class WorkfolioTeam(models.Model):
 
             url = 'https://api.workfolio.io/team'
 
-            response = requests.get(url, headers=team_header)
+            try:
+                response = requests.get(url, headers=team_header)
+                for data in response.json():
 
-            for data in response.json():
+                    team_info = dict()
+                    team_info['workfolio_team_id'] = data['teamId']
+                    team_info['name'] = data['teamName']
 
-                team_info = dict()
-                team_info['workfolio_team_id'] = data['teamId']
-                team_info['name'] = data['teamName']
+                    bool_team = self.env['wf.team'].sudo().search([('workfolio_team_id', '=', data['teamId'])])
+                    if not bool_team:
+                        self.env['wf.team'].sudo().create(team_info)
 
-                bool_team = self.env['wf.team'].sudo().search([('workfolio_team_id', '=', data['teamId'])])
-                if not bool_team:
-                    self.env['wf.team'].sudo().create(team_info)
+            except Exception as e:
+                return res
 
         return res
