@@ -34,7 +34,19 @@ class WorkfolioTeam(models.Model):
     def refresh(self):
         print(self.name)
         self.refresh_time = datetime.now()
-        #bool_team = self.env['wf.team'].sudo().search([('workfolio_team_id', '=', data['teamId'])])
+
+        wf_teams = self.env['wf.team'].sudo().search([])
+        for wf_team in wf_teams:
+            print(wf_team.name)
+            print(wf_team.workfolio_team_id)
+            team_header = {
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
+
+            url = "https://api.workfolio.io/timesheets?teamId="+wf_team.workfolio_team_id
+
+            response = requests.get(url, headers=team_header)
+            for data in response.json():
+                print(data['days'][0])
 
 
     @api.model
