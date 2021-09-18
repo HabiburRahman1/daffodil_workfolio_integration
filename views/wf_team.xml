@@ -43,11 +43,17 @@
                                 <span name="active" class="o_stat_text text-success" attrs="{'invisible': [('active', '=', False)]}">Active</span>
                                 <span name="active" class="o_stat_text text-danger" attrs="{'invisible': [('active', '=', True)]}">Deactive</span>
                             </button>
+
+                            <button type="object" name="refresh" class="oe_stat_button" icon="fa-refresh">
+                                <span name="active" class="o_stat_text text-success">Refresh</span>
+                            </button>
                         </div>
                         <div>
                             <h5 class="text-center">
                                 <span style="font-weight: normal;">Code: </span>
                                 <field name="code" class="text-center" nolabel="True" readonly="True"/>
+                                <span style="font-weight: normal;" name="refresh_time" > Last Updated: </span>
+                                <field name="refresh_time" class="text-center" nolabel="True" readonly="True"/>
                             </h5>
                         </div>
                         <div class="oe_title">

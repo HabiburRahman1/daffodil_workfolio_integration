@@ -8,16 +8,24 @@ import re
 import requests
 
 class WorkfolioTimesheet(models.Model):
+
     _name = 'wf.timesheet'
     _description = "Workfolio Timesheet"
 
     email = fields.Char(string="Email")
-    total_worked_days = fields.Char(string="Total Worked Days")
-    total_worked_second = fields.Char(string="Total Worked Second")
-    total_productive_second = fields.Char(string="Total Productive Second")
-    total_unproductive_second = fields.Char(string="Total Unproductive Second")
-    total_neutral_second = fields.Char(string="Total Neutral Second")
-    total_idle_second = fields.Char(string="Total Idle Second")
-    total_break_second = fields.Char(string="Total Break Second")
-    total_active_second = fields.Char(string="Total Active Second")
+    day = fields.Char(string="Total Worked Days")
+    day_type = fields.Char(string="Total Worked Days")
+    date = fields.Char(string="Total Worked Second")
+    in_time = fields.Char(string="Total Worked Second")
+    out_time = fields.Char(string="Total Worked Second")
+    worked_second = fields.Char(string="Total Productive Second")
+    productive_second = fields.Char(string="Productive Second")
+    unproductive_second = fields.Char(string="Unproductive Second")
+    neutral_second = fields.Char(string="Neutral Second")
+    idle_second = fields.Char(string="Idle Second")
+    break_second = fields.Char(string="Break Second")
+    active_second = fields.Char(string="Active Second")
+    #
+    # resource_ids = fields.One2many(
+    #     'resource.resource', 'user_id', 'Resources')
 

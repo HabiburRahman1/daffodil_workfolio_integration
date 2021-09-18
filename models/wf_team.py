@@ -6,6 +6,7 @@ import calendar
 import math
 import re
 import requests
+import pytz
 
 
 class WorkfolioTeam(models.Model):
@@ -16,6 +17,9 @@ class WorkfolioTeam(models.Model):
     workfolio_team_id = fields.Char(string="Team Id")
     code = fields.Char(string="Code", readonly=True)
     active = fields.Boolean(string="Active", default=True)
+    refresh_time = fields.Datetime(string="Refresh Time")
+
+    wf_employee_ids = fields.One2many('wf.employee', 'wf_team_id', string='WF Employees')
 
     _sql_constraints = [
         ('code_unique', 'unique(code)', 'Code already exists!'),
@@ -26,6 +30,12 @@ class WorkfolioTeam(models.Model):
         vals['code'] = self.env['ir.sequence'].next_by_code('wf.team')
         res = super(WorkfolioTeam, self).create(vals)
         return res
+
+    def refresh(self):
+        print(self.name)
+        self.refresh_time = datetime.now()
+        #bool_team = self.env['wf.team'].sudo().search([('workfolio_team_id', '=', data['teamId'])])
+
 
     @api.model
     def fields_view_get(self, view_id=None, view_type='tree', toolbar=False, submenu=False):
