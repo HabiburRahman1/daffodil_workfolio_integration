@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_daffodil_wf_team,daffodil_wf_team,model_wf_team,base.group_user,1,1,1,1
+access_daffodil_wf_employee,daffodil_wf_employee,model_wf_employee,base.group_user,1,1,1,1

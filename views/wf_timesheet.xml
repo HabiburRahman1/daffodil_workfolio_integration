@@ -3,25 +3,23 @@
     <data>
 
         <!-- Search View -->
-        <record id="wf_team_search_view" model="ir.ui.view">
-            <field name="name">wf.team.search.view</field>
-            <field name="model">wf.team</field>
+        <record id="wf_timesheet_search_view" model="ir.ui.view">
+            <field name="name">wf.timesheet.search.view</field>
+            <field name="model">wf.timesheet</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
-                    <field name="code"/>
                 </search>
             </field>
         </record>
 
 
         <!-- Tree View -->
-        <record id="wf_team_tree_view" model="ir.ui.view">
-            <field name="name">wf.team.tree.view</field>
-            <field name="model">wf.team</field>
+        <record id="wf_timesheet_tree_view" model="ir.ui.view">
+            <field name="name">wf.timesheet.tree.view</field>
+            <field name="model">wf.timesheet</field>
             <field name="arch" type="xml">
-                <tree string="Workfolio Team">
-                    <field name="code"/>
+                <tree string="Workfolio Timesheet">
                     <field name="name"/>
                 </tree>
             </field>
@@ -29,13 +27,13 @@
 
 
         <!-- Form View -->
-        <record id="wf_team_form_view" model="ir.ui.view">
-            <field name="name">wf.team.form.view</field>
-            <field name="model">wf.team</field>
+        <record id="wf_timesheet_form_view" model="ir.ui.view">
+            <field name="name">wf.timesheet.form.view</field>
+            <field name="model">wf.timesheet</field>
             <field name="priority" eval="7"/>
             <field name="arch" type="xml">
-                <form string="Workfolio Team Form">
-                    <sheet string="Workfolio Team">
+                <form string="Workfolio Timesheet Form">
+                    <sheet string="Workfolio Timesheet">
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                         <div class="oe_button_box" name="button_box">
                             <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
@@ -43,17 +41,11 @@
                                 <span name="active" class="o_stat_text text-success" attrs="{'invisible': [('active', '=', False)]}">Active</span>
                                 <span name="active" class="o_stat_text text-danger" attrs="{'invisible': [('active', '=', True)]}">Deactive</span>
                             </button>
-
-                            <button type="object" name="refresh" class="oe_stat_button" icon="fa-refresh">
-                                <span name="active" class="o_stat_text text-success">Refresh</span>
-                            </button>
                         </div>
                         <div>
                             <h5 class="text-center">
                                 <span style="font-weight: normal;">Code: </span>
                                 <field name="code" class="text-center" nolabel="True" readonly="True"/>
-                                <span style="font-weight: normal;" name="refresh_time" > Last Updated: </span>
-                                <field name="refresh_time" class="text-center" nolabel="True" readonly="True"/>
                             </h5>
                         </div>
                         <div class="oe_title">
@@ -62,18 +54,6 @@
                                 <field name="name" required="True"/>
                             </h1>
                         </div>
-
-                        <notebook>
-                            <page name="employee_ids" string="WF Employee">
-                                <field name="wf_employee_ids">
-                                    <tree string="WF Employee Information">
-                                        <field name="email"/>
-                                        <field name="wf_team_id"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            
-                        </notebook>
 
                     </sheet>
                 </form>
@@ -85,7 +65,7 @@
         <record id="action_wf_team_view" model="ir.actions.act_window">
             <field name="name">Workfolio Team</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">wf.team</field>
+            <field name="res_model">wf.timesheet</field>
             <field name="domain">[]</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="wf_team_tree_view"/>

@@ -37,8 +37,7 @@ class WorkfolioTeam(models.Model):
 
         wf_teams = self.env['wf.team'].sudo().search([])
         for wf_team in wf_teams:
-            print(wf_team.name)
-            print(wf_team.workfolio_team_id)
+
             team_header = {
                 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
 
@@ -46,7 +45,24 @@ class WorkfolioTeam(models.Model):
 
             response = requests.get(url, headers=team_header)
             for data in response.json():
-                print(data['days'][0])
+                current_time_sheet = data['days'][0]
+                employee_time_sheet_dict = dict()
+                employee_time_sheet_dict['email'] = data['email']
+                employee_time_sheet_dict['day'] = current_time_sheet['day']
+                employee_time_sheet_dict['day_type'] = current_time_sheet['dayType']
+                employee_time_sheet_dict['date'] = current_time_sheet['date']
+                employee_time_sheet_dict['in_time'] = current_time_sheet['in']
+                employee_time_sheet_dict['out_time'] = current_time_sheet['out']
+                employee_time_sheet_dict['worked_second'] = current_time_sheet['workedSec']
+                employee_time_sheet_dict['productive_second'] = current_time_sheet['productiveSec']
+                employee_time_sheet_dict['unproductive_second'] = current_time_sheet['unproductiveSec']
+                employee_time_sheet_dict['neutral_second'] = current_time_sheet['neutralSec']
+                employee_time_sheet_dict['idle_second'] = current_time_sheet['idleSec']
+                employee_time_sheet_dict['break_second'] = current_time_sheet['breakSec']
+                employee_time_sheet_dict['active_second'] = current_time_sheet['activeSec']
+
+                print(employee_time_sheet_dict)
+
 
 
     @api.model
