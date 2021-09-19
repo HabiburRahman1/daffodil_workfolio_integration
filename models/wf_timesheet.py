@@ -25,7 +25,5 @@ class WorkfolioTimesheet(models.Model):
     idle_second = fields.Char(string="Idle Second")
     break_second = fields.Char(string="Break Second")
     active_second = fields.Char(string="Active Second")
-    #
-    # resource_ids = fields.One2many(
-    #     'resource.resource', 'user_id', 'Resources')
 
+    wf_timesheet_id = fields.Many2one('wf.team', string='Team')

@@ -36,12 +36,18 @@
             <field name="arch" type="xml">
                 <form string="Workfolio Team Form">
                     <sheet string="Workfolio Team">
-                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
                         <div class="oe_button_box" name="button_box">
                             <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
-                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}" invisible="1"/>
-                                <span name="active" class="o_stat_text text-success" attrs="{'invisible': [('active', '=', False)]}">Active</span>
-                                <span name="active" class="o_stat_text text-danger" attrs="{'invisible': [('active', '=', True)]}">Deactive</span>
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       invisible="1"/>
+                                <span name="active" class="o_stat_text text-success"
+                                      attrs="{'invisible': [('active', '=', False)]}">Active
+                                </span>
+                                <span name="active" class="o_stat_text text-danger"
+                                      attrs="{'invisible': [('active', '=', True)]}">Deactive
+                                </span>
                             </button>
 
                             <button type="object" name="refresh" class="oe_stat_button" icon="fa-refresh">
@@ -50,9 +56,9 @@
                         </div>
                         <div>
                             <h5 class="text-center">
-                                <span style="font-weight: normal;">Code: </span>
+                                <span style="font-weight: normal;">Code:</span>
                                 <field name="code" class="text-center" nolabel="True" readonly="True"/>
-                                <span style="font-weight: normal;" name="refresh_time" > Last Updated: </span>
+                                <span style="font-weight: normal;" name="refresh_time">Last Updated:</span>
                                 <field name="refresh_time" class="text-center" nolabel="True" readonly="True"/>
                             </h5>
                         </div>
@@ -68,14 +74,30 @@
                                 <field name="wf_employee_ids">
                                     <tree string="WF Employee Information">
                                         <field name="email"/>
+                                        <field name="day"/>
+                                        <field name="day_type"/>
+                                        <field name="date"/>
+                                        <field name="in_time"/>
+                                        <field name="out_time"/>
+                                        <field name="worked_second"/>
+                                        <field name="productive_second"/>
+                                        <field name="unproductive_second"/>
+                                        <field name="neutral_second"/>
+                                        <field name="idle_second"/>
+                                        <field name="break_second"/>
+                                        <field name="active_second"/>
                                         <field name="wf_team_id"/>
                                     </tree>
                                 </field>
                             </page>
-                            
+
                         </notebook>
 
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
