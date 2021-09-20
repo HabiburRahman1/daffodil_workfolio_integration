@@ -16,6 +16,7 @@ class WorkfolioAppWebHistory(models.Model):
     productivity_status = fields.Char(string="Productivity Status")
     window_title = fields.Char(string="window Title")
     total_second = fields.Char(string="Total Second")
+    date = fields.Char(string="Date")
 
     wf_timesheet_id = fields.Many2one('wf.timesheet', string='Timesheet')
 
