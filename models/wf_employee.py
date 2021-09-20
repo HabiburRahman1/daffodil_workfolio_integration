@@ -13,11 +13,11 @@ class WorkfolioEmployee(models.Model):
 
     email = fields.Char(string="Email")
     day = fields.Char(string="Total Worked Days")
-    day_type = fields.Char(string="Total Worked Days")
+    day_type = fields.Char(string="Day Type")
     date = fields.Char(string="Date")
-    in_time = fields.Char(string="Total Worked Second")
-    out_time = fields.Char(string="Total Worked Second")
-    worked_second = fields.Char(string="Total Productive Second")
+    in_time = fields.Char(string="In Time")
+    out_time = fields.Char(string="Out Time")
+    worked_second = fields.Char(string="Worked Second")
     productive_second = fields.Char(string="Productive Second")
     unproductive_second = fields.Char(string="Unproductive Second")
     neutral_second = fields.Char(string="Neutral Second")
@@ -26,6 +26,8 @@ class WorkfolioEmployee(models.Model):
     active_second = fields.Char(string="Active Second")
 
     wf_team_id = fields.Many2one('wf.team', string='Team')
+
+
 
 
     # total_worked_days = fields.Char(string="Total Worked Days")

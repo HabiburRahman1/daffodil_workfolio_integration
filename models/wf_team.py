@@ -34,15 +34,13 @@ class WorkfolioTeam(models.Model):
         return res
 
     def refresh(self):
-        print(self.name)
-        self.refresh_time = datetime.now()
 
-        wf_team = self.env['wf.team'].sudo().search([('id','=',self.id)])
+        self.refresh_time = datetime.now()
 
         team_header = {
             'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
 
-        url = "https://api.workfolio.io/timesheets?teamId="+wf_team.workfolio_team_id
+        url = "https://api.workfolio.io/timesheets?teamId="+self.workfolio_team_id
 
         response = requests.get(url, headers=team_header)
 
@@ -62,7 +60,7 @@ class WorkfolioTeam(models.Model):
             employee_time_sheet_dict['idle_second'] = current_time_sheet['idleSec']
             employee_time_sheet_dict['break_second'] = current_time_sheet['breakSec']
             employee_time_sheet_dict['active_second'] = current_time_sheet['activeSec']
-            employee_time_sheet_dict['wf_team_id'] = wf_team.id
+            employee_time_sheet_dict['wf_team_id'] = self.id
 
 
             is_employee_exist = self.env['wf.employee'].sudo().search(
