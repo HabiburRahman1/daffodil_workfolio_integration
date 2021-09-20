@@ -21,20 +21,30 @@
             parent="menu_action_workfolio_integration"
             sequence="1" />
 
+
+
+
         <menuitem name="Configuration"
             id="menu_action_workfolio_configuration"
             parent="menu_action_workfolio_integration"
             sequence="10" />
 
-        <menuitem name="API Credential"
-            id="menu_action_workfolio_api_credential"
+        <menuitem name="API Setup"
+            id="menu_action_workfolio_api_setup"
+            action="action_workfolio_api_setup_view"
             parent="menu_action_workfolio_configuration"
-            sequence="10" />
+            sequence="1001" />
 
         <menuitem name="Settings"
             id="menu_action_workfolio_settings"
+            action="action_workfolio_settings_view"
             parent="menu_action_workfolio_configuration"
-            sequence="10" />
+            sequence="1010" />
+
+
+
+
+
 
     </data>
 </odoo>

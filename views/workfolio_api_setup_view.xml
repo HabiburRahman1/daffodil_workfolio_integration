@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Search View -->
+        <record id="workfolio_api_setup_search_view" model="ir.ui.view">
+            <field name="name">workfolio.api.setup.search.view</field>
+            <field name="model">workfolio.api.setup</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="extension"/>
+                    <field name="auth_value"/>
+                    <field name="base_url"/>
+                </search>
+            </field>
+        </record>
+        
+        
+        <!-- Tree View -->
+        <record id="workfolio_api_setup_tree_view" model="ir.ui.view">
+            <field name="name">workfolio.api.setup.tree.view</field>
+            <field name="model">workfolio.api.setup</field>
+            <field name="arch" type="xml">
+                <tree string="Workfolio API Setup">
+                    <field name="name"/>
+                    <field name="extension"/>
+                    <field name="auth_value"/>
+                    <field name="base_url"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <!-- Form View -->
+        <record id="workfolio_api_setup_form_view" model="ir.ui.view">
+            <field name="name">workfolio.api.setup.form.view</field>
+            <field name="model">workfolio.api.setup</field>
+            <field name="priority" eval="7"/>
+            <field name="arch" type="xml">
+                <form string="Workfolio API Setup Form">
+                    <sheet string="Workfolio API Setup">
+
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" class="oe_edit_only" string="Title"/>
+                                <field name="name" required="True"/>
+                            </h1>
+                        </div>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Actions -->
+        <record id="action_workfolio_api_setup_view" model="ir.actions.act_window">
+            <field name="name">Workfolio API Setup</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">workfolio.api.setup</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="workfolio_api_setup_tree_view"/>
+        </record>
+        
+    </data>
+</odoo>

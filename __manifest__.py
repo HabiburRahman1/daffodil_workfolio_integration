@@ -31,10 +31,13 @@
 
         ## Data
         'data/ir_sequence.xml',
+        'data/ir_config_parameter_data.xml',
 
         ## View
         'views/wf_team.xml',
         'views/wf_timesheet.xml',
+        'views/workfolio_api_setup_view.xml',
+        'views/config_workfolio_view.xml',
         'views/menus.xml',
         'views/templates.xml',
     ],

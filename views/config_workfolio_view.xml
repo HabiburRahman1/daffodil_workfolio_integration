@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View -->
+        <record id="workfolio_settings_form_view" model="ir.ui.view">
+            <field name="name">workfolio.config.settings.form.view</field>
+            <field name="model">workfolio.config.settings</field>
+            <field name="priority" eval="7" />
+            <field name="arch" type="xml">
+                <form string="Workfolio Configuration" class="oe_form_configuration">
+                    <header>
+                        <button string="Save" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <h3 style="margin-top: 30px;">General</h3>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="daffodil_workfolio_integration_confidence_threshold" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_confidence_threshold"/>
+                        </div>
+                        <div class="col-md-4">
+                            <h3><label for="daffodil_workfolio_integration_image_chatbot_avatar"/></h3>
+                            <field name="daffodil_workfolio_integration_image_chatbot_avatar" widget="image" class="oe_avatar oe_left" nolabel="1" options="{'preview_image': 'daffodil_chatbot_image_chatbot_avatar', 'size': [100, 100]}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <h3><label for="daffodil_workfolio_integration_image_visitor_avatar"/></h3>
+                            <field name="daffodil_workfolio_integration_image_visitor_avatar" widget="image" class="oe_avatar oe_left" nolabel="1" options="{'preview_image': 'daffodil_chatbot_image_visitor_avatar', 'size': [100, 100]}"/>
+                        </div>
+                    </div>
+                    <h3 style="margin-top: 30px;">Voice (Speech to Text)</h3>
+                    <hr/>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-4">
+                            <label for="daffodil_workfolio_integration_voice_speak" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_voice_speak"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="daffodil_workfolio_integration_voice_listen" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_voice_listen"/>
+                        </div>
+                    </div>
+                    <h3 style="margin-top: 30px;">Message</h3>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="daffodil_workfolio_integration_default_message" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_default_message" style="width: 97%"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="daffodil_workfolio_integration_low_confidence_message" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_low_confidence_message" style="width: 97%"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="daffodil_workfolio_integration_error_message" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_error_message" style="width: 97%"/>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Actions -->
+        <record id="action_workfolio_settings_view" model="ir.actions.act_window">
+            <field name="name">Workfolio Settings</field>
+            <field name="res_model">workfolio.config.settings</field>
+            <field name="view_id" ref="workfolio_settings_form_view"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+        
+    </data>
+</odoo>
