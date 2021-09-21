@@ -15,17 +15,18 @@ class WorkfolioEmployee(models.Model):
     day = fields.Char(string="Total Worked Days")
     day_type = fields.Char(string="Day Type")
     date = fields.Char(string="Date")
-    in_time = fields.Char(string="In Time")
-    out_time = fields.Char(string="Out Time")
-    worked_second = fields.Char(string="Worked Second")
-    productive_second = fields.Char(string="Productive Second")
-    unproductive_second = fields.Char(string="Unproductive Second")
-    neutral_second = fields.Char(string="Neutral Second")
-    idle_second = fields.Char(string="Idle Second")
-    break_second = fields.Char(string="Break Second")
-    active_second = fields.Char(string="Active Second")
+    in_time = fields.Datetime(string="In Time")
+    out_time = fields.Datetime(string="Out Time")
+    worked_second = fields.Char(string="Worked Hour")
+    productive_second = fields.Char(string="Productive Hour")
+    unproductive_second = fields.Char(string="Unproductive Hour")
+    neutral_second = fields.Char(string="Neutral Hour")
+    idle_second = fields.Char(string="Idle Hour")
+    break_second = fields.Char(string="Break Hour")
+    active_second = fields.Char(string="Active Hour")
 
     wf_team_id = fields.Many2one('wf.team', string='Team')
+
 
 
 

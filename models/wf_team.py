@@ -35,6 +35,15 @@ class WorkfolioTeam(models.Model):
 
     def refresh(self):
 
+        def convert(seconds):
+            seconds = seconds % (24 * 3600)
+            hour = seconds // 3600
+            seconds %= 3600
+            minutes = seconds // 60
+            seconds %= 60
+
+            return "%d:%02d:%02d" % (hour, minutes, seconds)
+
         self.refresh_time = datetime.now()
 
         team_header = {
@@ -51,15 +60,19 @@ class WorkfolioTeam(models.Model):
             employee_time_sheet_dict['day'] = current_time_sheet['day']
             employee_time_sheet_dict['day_type'] = current_time_sheet['dayType']
             employee_time_sheet_dict['date'] = current_time_sheet['date']
-            employee_time_sheet_dict['in_time'] = current_time_sheet['in']
-            employee_time_sheet_dict['out_time'] = current_time_sheet['out']
-            employee_time_sheet_dict['worked_second'] = current_time_sheet['workedSec']
-            employee_time_sheet_dict['productive_second'] = current_time_sheet['productiveSec']
-            employee_time_sheet_dict['unproductive_second'] = current_time_sheet['unproductiveSec']
-            employee_time_sheet_dict['neutral_second'] = current_time_sheet['neutralSec']
-            employee_time_sheet_dict['idle_second'] = current_time_sheet['idleSec']
-            employee_time_sheet_dict['break_second'] = current_time_sheet['breakSec']
-            employee_time_sheet_dict['active_second'] = current_time_sheet['activeSec']
+            if current_time_sheet['in']:
+                employee_time_sheet_dict['in_time'] = datetime.fromtimestamp((current_time_sheet['in'])/1000.0,pytz.timezone("Asia/Dhaka")).strftime("%Y-%m-%d %H:%M:%S")
+
+            if current_time_sheet['out']:
+                employee_time_sheet_dict['out_time'] = datetime.fromtimestamp((current_time_sheet['out'])/1000.0,pytz.timezone("Asia/Dhaka")).strftime("%Y-%m-%d %H:%M:%S")
+
+            employee_time_sheet_dict['worked_second'] = convert(current_time_sheet['workedSec'])
+            employee_time_sheet_dict['productive_second'] = convert(current_time_sheet['productiveSec'])
+            employee_time_sheet_dict['unproductive_second'] = convert(current_time_sheet['unproductiveSec'])
+            employee_time_sheet_dict['neutral_second'] = convert(current_time_sheet['neutralSec'])
+            employee_time_sheet_dict['idle_second'] = convert(current_time_sheet['idleSec'])
+            employee_time_sheet_dict['break_second'] = convert(current_time_sheet['breakSec'])
+            employee_time_sheet_dict['active_second'] = convert(current_time_sheet['activeSec'])
             employee_time_sheet_dict['wf_team_id'] = self.id
 
 
@@ -75,6 +88,11 @@ class WorkfolioTeam(models.Model):
             is_timesheet_exist = self.env['wf.timesheet'].sudo().search(
                 [('email', '=', employee_time_sheet_dict['email']),('date','=',employee_time_sheet_dict['date'])])
             employee_time_sheet_dict['wf_timesheet_id'] = employee_time_sheet_dict.pop('wf_team_id')
+
+            res_partner = self.env['res.partner'].sudo().search([('email', '=', employee_time_sheet_dict['email'])],limit=1)
+            if res_partner:
+                employee_time_sheet_dict['res_partner_id'] = res_partner.id
+
             if is_timesheet_exist:
                 is_timesheet_exist.update(employee_time_sheet_dict)
             else:

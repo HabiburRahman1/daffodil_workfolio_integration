@@ -17,20 +17,21 @@ class WorkfolioTimesheet(models.Model):
     day = fields.Char(string="Day")
     day_type = fields.Char(string="Day Type")
     date = fields.Char(string="Date")
-    in_time = fields.Char(string="In Time")
-    out_time = fields.Char(string="Out Time")
-    worked_second = fields.Char(string="Worked Second")
-    productive_second = fields.Char(string="Productive Second")
-    unproductive_second = fields.Char(string="Unproductive Second")
-    neutral_second = fields.Char(string="Neutral Second")
-    idle_second = fields.Char(string="Idle Second")
-    break_second = fields.Char(string="Break Second")
-    active_second = fields.Char(string="Active Second")
+    in_time = fields.Datetime(string="In Time")
+    out_time = fields.Datetime(string="Out Time")
+    worked_second = fields.Char(string="Worked Hour")
+    productive_second = fields.Char(string="Productive Hour")
+    unproductive_second = fields.Char(string="Unproductive Hour")
+    neutral_second = fields.Char(string="Neutral Hour")
+    idle_second = fields.Char(string="Idle Hour")
+    break_second = fields.Char(string="Break Hour")
+    active_second = fields.Char(string="Active Hour")
     refresh_time = fields.Datetime(string="Refresh Time", track_visibility='onchange')
 
     wf_timesheet_id = fields.Many2one('wf.team', string='Team')
 
     wf_apps_web_history_ids = fields.One2many('wf.app.web.history', 'wf_timesheet_id', string='WF Employees')
+    res_partner_id = fields.Many2one('res.partner', string='Responsible Person')
 
     def refresh(self):
 
@@ -39,16 +40,15 @@ class WorkfolioTimesheet(models.Model):
         team_header = {
             'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
 
-        url = "https://api.workfolio.io/appsAndWebsitesHistory?userEmail=" + self.email + "?startDate="+ self.date + "?endDate=" + self.date
-        print(self.email)
+        url = "https://api.workfolio.io/appsAndWebsitesHistory?userEmail=" + self.email + "&startDate="+ self.date + "&endDate=" + self.date
+
         response = requests.get(url, headers=team_header)
 
         app_usage_history = response.json()
 
         if app_usage_history:
             for data in app_usage_history['appUsageHistory']:
-                print(data)
-                print("This is for you my Heart Nodi")
+
                 app_usage_history_dict = dict()
                 app_usage_history_dict['title'] = data['title']
                 app_usage_history_dict['icon'] = data['icon']
@@ -61,11 +61,11 @@ class WorkfolioTimesheet(models.Model):
                     [('title', '=', data['title']),('window_title','=',data['windowTitle'])])
                 
                 if is_history_exist:
-                    print("This is for you my Heart Nodi test")
-                    is_history_exist.update(is_history_exist)
-                else:
+                    is_history_exist.update(app_usage_history_dict)
 
+                else:
                     self.env['wf.app.web.history'].sudo().create(app_usage_history_dict)
+
                 
 
         
