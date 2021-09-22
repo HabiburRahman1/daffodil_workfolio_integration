@@ -5,3 +5,4 @@ access_daffodil_wf_timesheet,daffodil_wf_timesheet,model_wf_timesheet,base.group
 access_daffodil_workfolio_api_setup,daffodil_workfolio_api_setup,model_workfolio_api_setup,base.group_user,1,1,1,1
 access_daffodil_workfolio_config_settings,daffodil_workfolio_config_settings,model_workfolio_config_settings,base.group_user,1,1,1,1
 access_daffodil_wf_app_web_history,daffodil_wf_app_web_history,model_wf_app_web_history,base.group_user,1,1,1,1
+access_daffodil_wf_screenshot,daffodil_wf_screenshot,model_wf_screenshot,base.group_user,1,1,1,1

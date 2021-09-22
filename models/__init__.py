@@ -6,3 +6,4 @@ from . import wf_employee
 from . import config_workfolio
 from . import workfolio_api_setup
 from . import wf_apps_web_history
+from . import wf_screenshot

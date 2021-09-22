@@ -31,7 +31,9 @@ class WorkfolioTimesheet(models.Model):
     wf_timesheet_id = fields.Many2one('wf.team', string='Team')
 
     wf_apps_web_history_ids = fields.One2many('wf.app.web.history', 'wf_timesheet_id', string='WF Employees')
-    res_partner_id = fields.Many2one('res.partner', string='Responsible Person')
+    wf_screenshot_ids = fields.One2many('wf.screenshot', 'wf_timesheet_id', string='WF Screenshot')
+    employee_id = fields.Many2one('hr.employee', string='Responsible Person')
+    user_id = fields.Many2one('res.users', string='Responsible User')
 
     def refresh(self):
 
@@ -65,6 +67,39 @@ class WorkfolioTimesheet(models.Model):
 
                 else:
                     self.env['wf.app.web.history'].sudo().create(app_usage_history_dict)
+
+        url_screenshot = "https://api.workfolio.io/screenshot?userEmail=" + self.email + "&startDate=" + self.date + "&endDate=" + self.date
+
+        response = requests.get(url_screenshot, headers=team_header)
+
+        screenshot = response.json()
+
+        print(screenshot)
+
+        if screenshot:
+            for data in screenshot['screenshots']:
+                screenshot_dict = dict()
+                screenshot_dict['image_url'] = data['imageUrl']
+                screenshot_dict['thumbnail_url'] = data['thumbnailUrl']
+                screenshot_dict['app_title'] = data['appTitle']
+                screenshot_dict['app_icon'] = data['appIcon']
+                screenshot_dict['date'] = data['date']
+                screenshot_dict['wf_timesheet_id'] = self.id
+
+                is_screenshot_exist = self.env['wf.screenshot'].sudo().search(
+                    [('app_title', '=', data['appTitle']), ('date', '=', data['date'])])
+
+                if is_screenshot_exist:
+                    is_screenshot_exist.update(screenshot_dict)
+                else:
+                    self.env['wf.screenshot'].sudo().create(screenshot_dict)
+
+
+
+
+
+
+
 
                 
 

@@ -18,45 +18,10 @@
                     <hr/>
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="daffodil_workfolio_integration_confidence_threshold" class="text_settings_section_title_highlight"/>
-                            <field name="daffodil_workfolio_integration_confidence_threshold"/>
+                            <label for="daffodil_workfolio_integration_auth_key" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_auth_key"/>
                         </div>
-                        <div class="col-md-4">
-                            <h3><label for="daffodil_workfolio_integration_image_chatbot_avatar"/></h3>
-                            <field name="daffodil_workfolio_integration_image_chatbot_avatar" widget="image" class="oe_avatar oe_left" nolabel="1" options="{'preview_image': 'daffodil_chatbot_image_chatbot_avatar', 'size': [100, 100]}"/>
-                        </div>
-                        <div class="col-md-4">
-                            <h3><label for="daffodil_workfolio_integration_image_visitor_avatar"/></h3>
-                            <field name="daffodil_workfolio_integration_image_visitor_avatar" widget="image" class="oe_avatar oe_left" nolabel="1" options="{'preview_image': 'daffodil_chatbot_image_visitor_avatar', 'size': [100, 100]}"/>
-                        </div>
-                    </div>
-                    <h3 style="margin-top: 30px;">Voice (Speech to Text)</h3>
-                    <hr/>
-                    <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-4">
-                            <label for="daffodil_workfolio_integration_voice_speak" class="text_settings_section_title_highlight"/>
-                            <field name="daffodil_workfolio_integration_voice_speak"/>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="daffodil_workfolio_integration_voice_listen" class="text_settings_section_title_highlight"/>
-                            <field name="daffodil_workfolio_integration_voice_listen"/>
-                        </div>
-                    </div>
-                    <h3 style="margin-top: 30px;">Message</h3>
-                    <hr/>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="daffodil_workfolio_integration_default_message" class="text_settings_section_title_highlight"/>
-                            <field name="daffodil_workfolio_integration_default_message" style="width: 97%"/>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="daffodil_workfolio_integration_low_confidence_message" class="text_settings_section_title_highlight"/>
-                            <field name="daffodil_workfolio_integration_low_confidence_message" style="width: 97%"/>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="daffodil_workfolio_integration_error_message" class="text_settings_section_title_highlight"/>
-                            <field name="daffodil_workfolio_integration_error_message" style="width: 97%"/>
-                        </div>
+
                     </div>
                 </form>
             </field>

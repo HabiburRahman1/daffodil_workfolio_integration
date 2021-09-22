@@ -44,59 +44,65 @@ class WorkfolioTeam(models.Model):
 
             return "%d:%02d:%02d" % (hour, minutes, seconds)
 
-        self.refresh_time = datetime.now()
+
 
         team_header = {
             'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
 
-        url = "https://api.workfolio.io/timesheets?teamId="+self.workfolio_team_id
-
+        url = "https://api.workfolio.io/timesheets?teamId="+self.workfolio_team_id+"&startDate="+str(int(datetime.now().timestamp() * 1000))+"&endDate="+str(int(datetime.now().timestamp()*1000))
+        print(url)
+        #str(int(datetime.now().timestamp() * 1000))
         response = requests.get(url, headers=team_header)
 
         for data in response.json():
-            current_time_sheet = data['days'][0]
-            employee_time_sheet_dict = dict()
-            employee_time_sheet_dict['email'] = data['email']
-            employee_time_sheet_dict['day'] = current_time_sheet['day']
-            employee_time_sheet_dict['day_type'] = current_time_sheet['dayType']
-            employee_time_sheet_dict['date'] = current_time_sheet['date']
-            if current_time_sheet['in']:
-                employee_time_sheet_dict['in_time'] = datetime.fromtimestamp((current_time_sheet['in'])/1000.0,pytz.timezone("Asia/Dhaka")).strftime("%Y-%m-%d %H:%M:%S")
+            print(data)
+            for current_time_sheet in data['days']:
+                print(current_time_sheet)
+                #current_time_sheet = data['days'][0]
+                employee_time_sheet_dict = dict()
+                employee_time_sheet_dict['email'] = data['email']
+                employee_time_sheet_dict['day'] = current_time_sheet['day']
+                employee_time_sheet_dict['day_type'] = current_time_sheet['dayType']
+                employee_time_sheet_dict['date'] = current_time_sheet['date']
+                if current_time_sheet['in']:
+                    employee_time_sheet_dict['in_time'] = datetime.fromtimestamp((current_time_sheet['in'])/1000.0,pytz.timezone("Asia/Dhaka")).strftime("%Y-%m-%d %H:%M:%S")
 
-            if current_time_sheet['out']:
-                employee_time_sheet_dict['out_time'] = datetime.fromtimestamp((current_time_sheet['out'])/1000.0,pytz.timezone("Asia/Dhaka")).strftime("%Y-%m-%d %H:%M:%S")
+                if current_time_sheet['out']:
+                    employee_time_sheet_dict['out_time'] = datetime.fromtimestamp((current_time_sheet['out'])/1000.0,pytz.timezone("Asia/Dhaka")).strftime("%Y-%m-%d %H:%M:%S")
 
-            employee_time_sheet_dict['worked_second'] = convert(current_time_sheet['workedSec'])
-            employee_time_sheet_dict['productive_second'] = convert(current_time_sheet['productiveSec'])
-            employee_time_sheet_dict['unproductive_second'] = convert(current_time_sheet['unproductiveSec'])
-            employee_time_sheet_dict['neutral_second'] = convert(current_time_sheet['neutralSec'])
-            employee_time_sheet_dict['idle_second'] = convert(current_time_sheet['idleSec'])
-            employee_time_sheet_dict['break_second'] = convert(current_time_sheet['breakSec'])
-            employee_time_sheet_dict['active_second'] = convert(current_time_sheet['activeSec'])
-            employee_time_sheet_dict['wf_team_id'] = self.id
-
-
-            is_employee_exist = self.env['wf.employee'].sudo().search(
-                [('email', '=', employee_time_sheet_dict['email'])])
-            if is_employee_exist:
-                is_employee_exist.update(employee_time_sheet_dict)
-            else:
-                self.env['wf.employee'].sudo().create(employee_time_sheet_dict)
+                employee_time_sheet_dict['worked_second'] = convert(current_time_sheet['workedSec'])
+                employee_time_sheet_dict['productive_second'] = convert(current_time_sheet['productiveSec'])
+                employee_time_sheet_dict['unproductive_second'] = convert(current_time_sheet['unproductiveSec'])
+                employee_time_sheet_dict['neutral_second'] = convert(current_time_sheet['neutralSec'])
+                employee_time_sheet_dict['idle_second'] = convert(current_time_sheet['idleSec'])
+                employee_time_sheet_dict['break_second'] = convert(current_time_sheet['breakSec'])
+                employee_time_sheet_dict['active_second'] = convert(current_time_sheet['activeSec'])
+                employee_time_sheet_dict['wf_team_id'] = self.id
 
 
+                is_employee_exist = self.env['wf.employee'].sudo().search(
+                    [('email', '=', employee_time_sheet_dict['email'])])
+                if is_employee_exist:
+                    is_employee_exist.update(employee_time_sheet_dict)
+                else:
+                    self.env['wf.employee'].sudo().create(employee_time_sheet_dict)
 
-            is_timesheet_exist = self.env['wf.timesheet'].sudo().search(
-                [('email', '=', employee_time_sheet_dict['email']),('date','=',employee_time_sheet_dict['date'])])
-            employee_time_sheet_dict['wf_timesheet_id'] = employee_time_sheet_dict.pop('wf_team_id')
 
-            res_partner = self.env['res.partner'].sudo().search([('email', '=', employee_time_sheet_dict['email'])],limit=1)
-            if res_partner:
-                employee_time_sheet_dict['res_partner_id'] = res_partner.id
 
-            if is_timesheet_exist:
-                is_timesheet_exist.update(employee_time_sheet_dict)
-            else:
-                self.env['wf.timesheet'].sudo().create(employee_time_sheet_dict)
+                is_timesheet_exist = self.env['wf.timesheet'].sudo().search(
+                    [('email', '=', employee_time_sheet_dict['email']),('date','=',employee_time_sheet_dict['date'])])
+                employee_time_sheet_dict['wf_timesheet_id'] = employee_time_sheet_dict.pop('wf_team_id')
+
+                res_user = self.env['res.users'].sudo().search([('email', '=', employee_time_sheet_dict['email'])],limit=1)
+                if res_user:
+                    employee_time_sheet_dict['employee_id'] = res_user.employee_id.id
+                    employee_time_sheet_dict['user_id'] = res_user.id
+
+                if is_timesheet_exist:
+                    is_timesheet_exist.update(employee_time_sheet_dict)
+                else:
+                    self.env['wf.timesheet'].sudo().create(employee_time_sheet_dict)
+        self.refresh_time = datetime.now()
 
 
 
