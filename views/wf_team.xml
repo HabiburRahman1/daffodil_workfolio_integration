@@ -76,7 +76,7 @@
                                         <field name="email"/>
                                         <field name="day"/>
                                         <field name="day_type"/>
-                                        <field name="date"/>
+                                        <field name="converted_date"/>
                                         <field name="in_time"/>
                                         <field name="out_time"/>
                                         <field name="worked_second"/>

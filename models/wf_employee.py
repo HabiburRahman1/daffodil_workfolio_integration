@@ -15,6 +15,7 @@ class WorkfolioEmployee(models.Model):
     day = fields.Char(string="Total Worked Days")
     day_type = fields.Char(string="Day Type")
     date = fields.Char(string="Date")
+    converted_date = fields.Char(string="Date")
     in_time = fields.Datetime(string="In Time")
     out_time = fields.Datetime(string="Out Time")
     worked_second = fields.Char(string="Worked Hour")
@@ -26,6 +27,9 @@ class WorkfolioEmployee(models.Model):
     active_second = fields.Char(string="Active Hour")
 
     wf_team_id = fields.Many2one('wf.team', string='Team')
+
+    employee_id = fields.Many2one('hr.employee', string='Responsible Person')
+    user_id = fields.Many2one('res.users', string='Responsible User')
 
 
 

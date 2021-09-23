@@ -28,6 +28,7 @@
     'data': [
         ## Security
         'security/ir.model.access.csv',
+        'security/security.xml',
 
         ## Data
         'data/ir_sequence.xml',
@@ -40,6 +41,8 @@
         'views/config_workfolio_view.xml',
         'views/menus.xml',
         'views/templates.xml',
+
+
     ],
     # only loaded in demonstration mode
     'demo': [

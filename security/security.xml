@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_rule_wf_timesheet_by_user" model="ir.rule">
+        <field name="name">Workfolio Timesheet: See only his data</field>
+        <field name="model_id" ref="model_wf_timesheet"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[('user_id.id','=',user.id)]</field>
+    </record>
+
+    <record id="ir_rule_wf_timesheet_team_by_user" model="ir.rule">
+        <field name="name">Workfolio Timesheet by Team: See only his data</field>
+        <field name="model_id" ref="model_wf_employee"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[('user_id.id','=',user.id)]</field>
+    </record>
+
+
+</odoo>

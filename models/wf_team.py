@@ -44,14 +44,11 @@ class WorkfolioTeam(models.Model):
 
             return "%d:%02d:%02d" % (hour, minutes, seconds)
 
-
-
-        team_header = {
-            'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
+        auth_key = self.env['ir.config_parameter'].sudo().get_param('daffodil_workfolio_integration.auth_key')
+        team_header = {'Authorization': auth_key}
 
         url = "https://api.workfolio.io/timesheets?teamId="+self.workfolio_team_id+"&startDate="+str(int(datetime.now().timestamp() * 1000))+"&endDate="+str(int(datetime.now().timestamp()*1000))
-        print(url)
-        #str(int(datetime.now().timestamp() * 1000))
+
         response = requests.get(url, headers=team_header)
 
         for data in response.json():
@@ -64,6 +61,8 @@ class WorkfolioTeam(models.Model):
                 employee_time_sheet_dict['day'] = current_time_sheet['day']
                 employee_time_sheet_dict['day_type'] = current_time_sheet['dayType']
                 employee_time_sheet_dict['date'] = current_time_sheet['date']
+                employee_time_sheet_dict['converted_date'] = datetime.fromtimestamp((current_time_sheet['date']) / 1000.0, pytz.timezone("Asia/Dhaka")).strftime(
+                    "%Y-%m-%d")
                 if current_time_sheet['in']:
                     employee_time_sheet_dict['in_time'] = datetime.fromtimestamp((current_time_sheet['in'])/1000.0,pytz.timezone("Asia/Dhaka")).strftime("%Y-%m-%d %H:%M:%S")
 
@@ -80,6 +79,13 @@ class WorkfolioTeam(models.Model):
                 employee_time_sheet_dict['wf_team_id'] = self.id
 
 
+                res_user = self.env['res.users'].sudo().search([('email', '=', employee_time_sheet_dict['email'])],
+                                                               limit=1)
+                if res_user:
+                    employee_time_sheet_dict['employee_id'] = res_user.employee_id.id
+                    employee_time_sheet_dict['user_id'] = res_user.id
+
+
                 is_employee_exist = self.env['wf.employee'].sudo().search(
                     [('email', '=', employee_time_sheet_dict['email'])])
                 if is_employee_exist:
@@ -92,11 +98,6 @@ class WorkfolioTeam(models.Model):
                 is_timesheet_exist = self.env['wf.timesheet'].sudo().search(
                     [('email', '=', employee_time_sheet_dict['email']),('date','=',employee_time_sheet_dict['date'])])
                 employee_time_sheet_dict['wf_timesheet_id'] = employee_time_sheet_dict.pop('wf_team_id')
-
-                res_user = self.env['res.users'].sudo().search([('email', '=', employee_time_sheet_dict['email'])],limit=1)
-                if res_user:
-                    employee_time_sheet_dict['employee_id'] = res_user.employee_id.id
-                    employee_time_sheet_dict['user_id'] = res_user.id
 
                 if is_timesheet_exist:
                     is_timesheet_exist.update(employee_time_sheet_dict)
@@ -115,7 +116,8 @@ class WorkfolioTeam(models.Model):
         # for checking team is updated or not and create team if its not updated
         if res['name'] == 'wf.team.tree.view':
 
-            team_header = {'Authorization' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
+            auth_key = self.env['ir.config_parameter'].sudo().get_param('daffodil_workfolio_integration.auth_key')
+            team_header = {'Authorization' : auth_key}
 
             url = 'https://api.workfolio.io/team'
 

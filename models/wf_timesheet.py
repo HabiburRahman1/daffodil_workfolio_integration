@@ -17,6 +17,7 @@ class WorkfolioTimesheet(models.Model):
     day = fields.Char(string="Day")
     day_type = fields.Char(string="Day Type")
     date = fields.Char(string="Date")
+    converted_date = fields.Char(string="Date")
     in_time = fields.Datetime(string="In Time")
     out_time = fields.Datetime(string="Out Time")
     worked_second = fields.Char(string="Worked Hour")
@@ -38,9 +39,9 @@ class WorkfolioTimesheet(models.Model):
     def refresh(self):
 
         self.refresh_time = datetime.now()
+        auth_key = self.env['ir.config_parameter'].sudo().get_param('daffodil_workfolio_integration.auth_key')
 
-        team_header = {
-            'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbmlzYXRpb25JZCI6ImE0ZjQ0MjIwLWY1YmMtMTFlYi05ZjQ2LTM3ZDhlY2Y5ZmE1NiIsImRhdGUiOiIyMDIxLTA4LTE0VDEwOjA4OjQ3LjYzMVoiLCJpYXQiOjE2Mjg5MzU3Mjd9.SU-T_OOBLutiPOLSEn6HiFZbTIeFLhEoFcNEZPhwR3w'}
+        team_header = {'Authorization': auth_key}
 
         url = "https://api.workfolio.io/appsAndWebsitesHistory?userEmail=" + self.email + "&startDate="+ self.date + "&endDate=" + self.date
 

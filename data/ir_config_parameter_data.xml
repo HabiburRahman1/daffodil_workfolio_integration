@@ -7,6 +7,6 @@
             <field name="key">daffodil_workfolio_integration.auth_key</field>
             <field name="value"></field>
         </record>
-        
+
     </data>
 </odoo>
