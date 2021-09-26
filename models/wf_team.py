@@ -23,6 +23,8 @@ class WorkfolioTeam(models.Model):
     wf_employee_ids = fields.One2many('wf.employee', 'wf_team_id', string='WF Employees')
     wf_timesheet_ids = fields.One2many('wf.timesheet', 'wf_timesheet_id', string='WF Timesheet')
 
+    manager_ids = fields.Many2many("res.users", string="Team Managers")
+
     _sql_constraints = [
         ('code_unique', 'unique(code)', 'Code already exists!'),
     ]

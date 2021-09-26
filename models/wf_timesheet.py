@@ -7,11 +7,12 @@ import math
 import re
 import requests
 
-class WorkfolioTimesheet(models.Model):
 
+class WorkfolioTimesheet(models.Model):
     _name = 'wf.timesheet'
     _description = "Workfolio Timesheet"
     _inherit = ['mail.thread']
+    _rec_name = "email"
 
     email = fields.Char(string="Email")
     day = fields.Char(string="Day")

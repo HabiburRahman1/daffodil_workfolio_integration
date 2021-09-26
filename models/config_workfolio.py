@@ -10,7 +10,7 @@ import re
 class WorkfolioSettings(models.TransientModel):
     _inherit = "res.config.settings"
     _name = "workfolio.config.settings"
-    _description = 'Chatbot Configurations'
+    _description = 'Workfolio Configurations'
 
     daffodil_workfolio_integration_auth_key = fields.Text(string="Auth Key", default="Authorization")
 

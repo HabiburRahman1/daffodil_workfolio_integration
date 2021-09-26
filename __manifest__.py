@@ -1,38 +1,29 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Daffodil Workfolio Integration",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
+    'name': 'Workfolio Integration',
+    'summary': """Workfolio features and functionality integration.""",
     'description': """
-        Long description of module's purpose
+Workfolio Integration
+=====================
+Workfolio features and functionality integration.
     """,
-
-    'author': "Md Habibur Rahman",
-    'website': "http://pd.daffodilvarsity.edu.bd/",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base',
-                'mail',
-                ],
-
-    # always loaded
+    'version': '13.0.1.0',
+    'author': 'Md Habibur Rahman & Jeshad Khan',
+    'company': 'Daffodil International University (DIU)',
+    'website': 'http://pd.daffodilvarsity.edu.bd/',
+    'category': 'Tools',
+    'sequence': 1,
+    'depends': [
+        'base',
+        'mail',
+    ],
     'data': [
-        ## Security
-        'security/ir.model.access.csv',
-        'security/security.xml',
-
         ## Data
         'data/ir_sequence.xml',
-        'data/ir_config_parameter_data.xml',
+
+        ## Security
+        'security/security.xml',
+        'security/ir.model.access.csv',
 
         ## View
         'views/wf_team.xml',
@@ -40,12 +31,16 @@
         'views/workfolio_api_setup_view.xml',
         'views/config_workfolio_view.xml',
         'views/menus.xml',
-        'views/templates.xml',
-
-
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+    'icon': "/daffodil_workfolio_integration/static/description/icon.png",
+    "images": ["/static/description/banner.png"],
+    "license": "OPL-1",
+    "price": 0,
+    "currency": "EUR",
 }
+
+

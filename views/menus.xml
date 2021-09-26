@@ -5,46 +5,42 @@
         <!-- Top Menu -->
         <menuitem name="Workfolio"
             id="menu_action_workfolio_integration"
-            web_icon="daffodil_workfolio_integration,static/src/img/icon.png"
-            sequence="10" />
+            web_icon="daffodil_workfolio_integration,static/description/icon.png"/>
 
+        
         <!-- Menu -->
         <menuitem name="Team"
             id="menu_action_workfolio_integration_team"
             action="action_wf_team_view"
             parent="menu_action_workfolio_integration"
-            sequence="1" />
+            groups="daffodil_workfolio_integration.group_workfolio_team_manager,daffodil_workfolio_integration.group_workfolio_manager,daffodil_workfolio_integration.group_workfolio_administrator"
+            sequence="1"/>
 
         <menuitem name="Timesheet"
             id="menu_action_workfolio_integration_timesheet"
             action="action_wf_timesheet_view"
             parent="menu_action_workfolio_integration"
-            sequence="1" />
-
-
-
+            sequence="2"/>
 
         <menuitem name="Configuration"
             id="menu_action_workfolio_configuration"
             parent="menu_action_workfolio_integration"
-            sequence="10" />
+            groups="daffodil_workfolio_integration.group_workfolio_administrator"
+            sequence="10"/>
 
-        <menuitem name="API Setup"
+        
+        <!-- Sub Menu -->
+        <!-- <menuitem name="API Setup"
             id="menu_action_workfolio_api_setup"
             action="action_workfolio_api_setup_view"
             parent="menu_action_workfolio_configuration"
-            sequence="1001" />
+            sequence="1001"/> -->
 
         <menuitem name="Settings"
             id="menu_action_workfolio_settings"
             action="action_workfolio_settings_view"
             parent="menu_action_workfolio_configuration"
-            sequence="1010" />
-
-
-
-
-
+            sequence="1010"/>
 
     </data>
 </odoo>

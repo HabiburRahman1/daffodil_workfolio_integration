@@ -69,6 +69,13 @@
                             </h1>
                         </div>
 
+                        <div>
+                            <h3>
+                                <span style="font-weight: normal;" name="refresh_time">Team Managers: </span>
+                                <field name="manager_ids" widget="many2many_tags"/>
+                            </h3>
+                        </div>
+
                         <notebook>
                             <page name="employee_ids" string="WF Employee">
                                 <field name="wf_employee_ids">
