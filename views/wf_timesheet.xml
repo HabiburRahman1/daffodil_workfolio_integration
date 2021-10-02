@@ -61,29 +61,25 @@
                         </div>
 
                         <group>
-                            <field name="day"/>
-                            <field name="day_type"/>
-                            <field name="converted_date"/>
+                            <group>
+                                <field name="day"/>
+                                <field name="day_type"/>
+                                <field name="converted_date"/>
+                                <separator/>
+                                <field name="in_time"/>
+                                <field name="out_time"/>
+                            </group>
+                            <group>
+                                <field name="worked_second"/>
+                                <field name="productive_second"/>
+                                <field name="unproductive_second"/>
+                                <separator/>
+                                <field name="neutral_second"/>
+                                <field name="idle_second"/>
+                                <field name="break_second"/>
+                                <field name="active_second"/>
+                            </group>
                         </group>
-
-                        <group>
-                            <field name="in_time"/>
-                            <field name="out_time"/>
-                        </group>
-
-                        <group>
-                            <field name="worked_second"/>
-                            <field name="productive_second"/>
-                            <field name="unproductive_second"/>
-                        </group>
-
-                        <group>
-                            <field name="neutral_second"/>
-                            <field name="idle_second"/>
-                            <field name="break_second"/>
-                            <field name="active_second"/>
-                        </group>
-
 
                         <notebook>
                             <page name="wf_apps_web_history_ids" string="Uses Apps and Website">

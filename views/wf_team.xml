@@ -56,9 +56,9 @@
                         </div>
                         <div>
                             <h5 class="text-center">
-                                <span style="font-weight: normal;">Code:</span>
+                                <span style="font-weight: normal;">Code: </span>
                                 <field name="code" class="text-center" nolabel="True" readonly="True"/>
-                                <span style="font-weight: normal;" name="refresh_time">Last Updated:</span>
+                                <span style="font-weight: normal; margin-left: 5px;" name="refresh_time">Last Updated: </span>
                                 <field name="refresh_time" class="text-center" nolabel="True" readonly="True"/>
                             </h5>
                         </div>
@@ -77,7 +77,7 @@
                         </div>
 
                         <notebook>
-                            <page name="employee_ids" string="WF Employee">
+                            <page name="wf_employee" string="Employee">
                                 <field name="wf_employee_ids">
                                     <tree string="WF Employee Information">
                                         <field name="email"/>
