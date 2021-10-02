@@ -40,7 +40,7 @@
             <field name="arch" type="xml">
                 <tree string="Workfolio Timesheet">
 
-                    <field name="email"/>
+                    <field name="employee_id"/>
                     <field name="day"/>
                     <field name="day_type"/>
                     <field name="converted_date"/>
