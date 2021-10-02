@@ -35,9 +35,6 @@ class WorkfolioEmployee(models.Model):
     workfolio_break_second = fields.Char(string="Break Hour")
     workfolio_active_second = fields.Char(string="Active Hour")
 
-
-
     wf_team_id = fields.Many2one('wf.team', string='Team')
-
     employee_id = fields.Many2one('hr.employee', string='Responsible Person')
     user_id = fields.Many2one('res.users', string='Responsible User')
