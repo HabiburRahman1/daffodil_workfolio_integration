@@ -4,6 +4,36 @@
 
 
         <!-- Tree View -->
+        <record id="wf_timesheet_search_view" model="ir.ui.view">
+            <field name="name">wf.timesheet.search.view</field>
+            <field name="model">wf.timesheet</field>
+            <field name="arch" type="xml">
+                <search string="Workfolio Timesheet">
+
+                    <field name="email"/>
+                    <field name="day"/>
+                    <field name="day_type"/>
+                    <field name="converted_date"/>
+
+
+                    <separator/>
+
+                    <group expand="1" string="Group By">
+                        <filter string="Team" name="group_wf_timesheet_id" context="{'group_by':'wf_timesheet_id'}"/>
+                    </group>
+
+                    <group expand="1" string="Group By">
+                        <filter string="Email" name="group_email" context="{'group_by':'email'}"/>
+                    </group>
+                    
+                    
+
+                </search>
+            </field>
+        </record>
+
+
+        <!-- Tree View -->
         <record id="wf_timesheet_tree_view" model="ir.ui.view">
             <field name="name">wf.timesheet.tree.view</field>
             <field name="model">wf.timesheet</field>
@@ -126,6 +156,7 @@
             <field name="res_model">wf.timesheet</field>
             <field name="domain">[]</field>
             <field name="view_mode">tree,form</field>
+            <field name="context"> {'search_default_group_wf_timesheet_id': 1, 'search_default_group_email': 1} </field>
             <field name="view_id" ref="wf_timesheet_tree_view"/>
         </record>
 

@@ -80,20 +80,15 @@
                             <page name="wf_employee" string="Employee">
                                 <field name="wf_employee_ids">
                                     <tree string="WF Employee Information">
-                                        <field name="email"/>
+                                        <field name="employee_id" attrs="{'invisible':[('employee_id','=',False)]}"/>
+                                        <!-- <field name="email" attrs="{'invisible':[('employee_id','!=',False)]}"/> -->
                                         <field name="day"/>
                                         <field name="day_type"/>
-                                        <field name="converted_date"/>
                                         <field name="in_time"/>
                                         <field name="out_time"/>
                                         <field name="worked_second"/>
-                                        <field name="productive_second"/>
-                                        <field name="unproductive_second"/>
-                                        <field name="neutral_second"/>
-                                        <field name="idle_second"/>
                                         <field name="break_second"/>
                                         <field name="active_second"/>
-                                        <field name="wf_team_id"/>
                                     </tree>
                                 </field>
                             </page>

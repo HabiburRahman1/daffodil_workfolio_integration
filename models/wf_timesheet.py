@@ -21,6 +21,7 @@ class WorkfolioTimesheet(models.Model):
     converted_date = fields.Char(string="Date")
     in_time = fields.Datetime(string="In Time")
     out_time = fields.Datetime(string="Out Time")
+
     worked_second = fields.Char(string="Worked Hour")
     productive_second = fields.Char(string="Productive Hour")
     unproductive_second = fields.Char(string="Unproductive Hour")
@@ -28,6 +29,15 @@ class WorkfolioTimesheet(models.Model):
     idle_second = fields.Char(string="Idle Hour")
     break_second = fields.Char(string="Break Hour")
     active_second = fields.Char(string="Active Hour")
+
+    workfolio_worked_second = fields.Char(string="Worked Hour")
+    workfolio_productive_second = fields.Char(string="Productive Hour")
+    workfolio_unproductive_second = fields.Char(string="Unproductive Hour")
+    workfolio_neutral_second = fields.Char(string="Neutral Hour")
+    workfolio_idle_second = fields.Char(string="Idle Hour")
+    workfolio_break_second = fields.Char(string="Break Hour")
+    workfolio_active_second = fields.Char(string="Active Hour")
+
     refresh_time = fields.Datetime(string="Refresh Time", track_visibility='onchange')
 
     wf_timesheet_id = fields.Many2one('wf.team', string='Team')

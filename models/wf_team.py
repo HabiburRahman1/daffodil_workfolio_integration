@@ -78,6 +78,15 @@ class WorkfolioTeam(models.Model):
                 employee_time_sheet_dict['idle_second'] = convert(current_time_sheet['idleSec'])
                 employee_time_sheet_dict['break_second'] = convert(current_time_sheet['breakSec'])
                 employee_time_sheet_dict['active_second'] = convert(current_time_sheet['activeSec'])
+
+                employee_time_sheet_dict['workfolio_worked_second'] = current_time_sheet['workedSec']
+                employee_time_sheet_dict['workfolio_productive_second'] = current_time_sheet['productiveSec']
+                employee_time_sheet_dict['workfolio_unproductive_second'] = current_time_sheet['unproductiveSec']
+                employee_time_sheet_dict['workfolio_neutral_second'] = current_time_sheet['neutralSec']
+                employee_time_sheet_dict['workfolio_idle_second'] = current_time_sheet['idleSec']
+                employee_time_sheet_dict['workfolio_break_second'] = current_time_sheet['breakSec']
+                employee_time_sheet_dict['workfolio_active_second'] = current_time_sheet['activeSec']
+
                 employee_time_sheet_dict['wf_team_id'] = self.id
 
 
