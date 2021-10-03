@@ -8,5 +8,10 @@
             <field name="value"></field>
         </record>
 
+        <record id="daffodil_workfolio_integration_start_date_time_data" model="ir.config_parameter">
+            <field name="key">daffodil_workfolio_integration.start_date_time</field>
+            <field name="value"></field>
+        </record>
+
     </data>
 </odoo>

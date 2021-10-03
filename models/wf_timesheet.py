@@ -38,23 +38,28 @@ class WorkfolioTimesheet(models.Model):
     workfolio_break_second = fields.Char(string="Break Hour")
     workfolio_active_second = fields.Char(string="Active Hour")
 
-    refresh_time = fields.Datetime(string="Refresh Time", track_visibility='onchange')
+    refresh_time = fields.Datetime(
+        string="Refresh Time", track_visibility='onchange')
 
     wf_timesheet_id = fields.Many2one('wf.team', string='Team')
 
-    wf_apps_web_history_ids = fields.One2many('wf.app.web.history', 'wf_timesheet_id', string='WF Employees')
-    wf_screenshot_ids = fields.One2many('wf.screenshot', 'wf_timesheet_id', string='WF Screenshot')
+    wf_apps_web_history_ids = fields.One2many(
+        'wf.app.web.history', 'wf_timesheet_id', string='WF Employees')
+    wf_screenshot_ids = fields.One2many(
+        'wf.screenshot', 'wf_timesheet_id', string='WF Screenshot')
     employee_id = fields.Many2one('hr.employee', string='Responsible Person')
     user_id = fields.Many2one('res.users', string='Responsible User')
 
     def refresh(self):
 
         self.refresh_time = datetime.now()
-        auth_key = self.env['ir.config_parameter'].sudo().get_param('daffodil_workfolio_integration.auth_key')
+        auth_key = self.env['ir.config_parameter'].sudo().get_param(
+            'daffodil_workfolio_integration.auth_key')
 
         team_header = {'Authorization': auth_key}
 
-        url = "https://api.workfolio.io/appsAndWebsitesHistory?userEmail=" + self.email + "&startDate="+ self.date + "&endDate=" + self.date
+        url = "https://api.workfolio.io/appsAndWebsitesHistory?userEmail=" + \
+            self.email + "&startDate=" + self.date + "&endDate=" + self.date
 
         response = requests.get(url, headers=team_header)
 
@@ -72,15 +77,17 @@ class WorkfolioTimesheet(models.Model):
                 app_usage_history_dict['total_second'] = data['totalSec']
                 app_usage_history_dict['wf_timesheet_id'] = self.id
                 is_history_exist = self.env['wf.app.web.history'].sudo().search(
-                    [('title', '=', data['title']),('window_title','=',data['windowTitle'])])
-                
+                    [('title', '=', data['title']), ('window_title', '=', data['windowTitle'])])
+
                 if is_history_exist:
                     is_history_exist.update(app_usage_history_dict)
 
                 else:
-                    self.env['wf.app.web.history'].sudo().create(app_usage_history_dict)
+                    self.env['wf.app.web.history'].sudo().create(
+                        app_usage_history_dict)
 
-        url_screenshot = "https://api.workfolio.io/screenshot?userEmail=" + self.email + "&startDate=" + self.date + "&endDate=" + self.date
+        url_screenshot = "https://api.workfolio.io/screenshot?userEmail=" + \
+            self.email + "&startDate=" + self.date + "&endDate=" + self.date
 
         response = requests.get(url_screenshot, headers=team_header)
 
@@ -105,16 +112,3 @@ class WorkfolioTimesheet(models.Model):
                     is_screenshot_exist.update(screenshot_dict)
                 else:
                     self.env['wf.screenshot'].sudo().create(screenshot_dict)
-
-
-
-
-
-
-
-
-                
-
-        
-
-

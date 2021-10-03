@@ -13,6 +13,7 @@ class WorkfolioSettings(models.TransientModel):
     _description = 'Workfolio Configurations'
 
     daffodil_workfolio_integration_auth_key = fields.Text(string="Auth Key", default="Authorization")
+    daffodil_workfolio_integration_start_date_time = fields.Datetime(string="Start Date", default=datetime.now())
 
 
 
@@ -21,6 +22,7 @@ class WorkfolioSettings(models.TransientModel):
         res = super(WorkfolioSettings, self).get_values()
         res.update(
             daffodil_workfolio_integration_auth_key = self.env['ir.config_parameter'].sudo().get_param('daffodil_workfolio_integration.auth_key'),
+            daffodil_workfolio_integration_start_date_time = self.env['ir.config_parameter'].sudo().get_param('daffodil_workfolio_integration.start_date_time'),
         )
         return res
 
@@ -29,3 +31,4 @@ class WorkfolioSettings(models.TransientModel):
         super(WorkfolioSettings, self).set_values()
         param = self.env['ir.config_parameter'].sudo()
         param.set_param('daffodil_workfolio_integration.auth_key', self.daffodil_workfolio_integration_auth_key)
+        param.set_param('daffodil_workfolio_integration.start_date_time', self.daffodil_workfolio_integration_start_date_time)

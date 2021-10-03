@@ -20,6 +20,9 @@
                         <div class="col-md-4">
                             <label for="daffodil_workfolio_integration_auth_key" class="text_settings_section_title_highlight"/>
                             <field name="daffodil_workfolio_integration_auth_key"/>
+
+                            <label for="daffodil_workfolio_integration_start_date_time" class="text_settings_section_title_highlight"/>
+                            <field name="daffodil_workfolio_integration_start_date_time"/>
                         </div>
 
                     </div>

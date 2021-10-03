@@ -26,7 +26,7 @@
                     </group>
 
                     <group expand="1" string="Group By">
-                        <filter string="Monthly" name="group_converted_date" context="{'group_by':'converted_date:month'}"/>
+                        <filter string="Date" name="group_converted_date" context="{'group_by':'converted_date:month'}"/>
                     </group>
                     
                 </search>
@@ -131,7 +131,7 @@
                                         <field name="image_url" widget="url"/>
                                         <field name="thumbnail_url" widget="url"/>
                                         <field name="app_title"/>
-                                        <field name="app_icon"/>
+                                        <field name="app_icon" widget="url"/>
                                         <field name="date"/>
                                     </tree>
                                 </field>
