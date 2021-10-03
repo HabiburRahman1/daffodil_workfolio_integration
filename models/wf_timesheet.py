@@ -18,7 +18,7 @@ class WorkfolioTimesheet(models.Model):
     day = fields.Char(string="Day")
     day_type = fields.Char(string="Day Type")
     date = fields.Char(string="Date")
-    converted_date = fields.Char(string="Date")
+    converted_date = fields.Date(string="Date")
     in_time = fields.Datetime(string="In Time")
     out_time = fields.Datetime(string="Out Time")
 

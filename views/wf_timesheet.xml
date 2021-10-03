@@ -15,7 +15,6 @@
                     <field name="day_type"/>
                     <field name="converted_date"/>
 
-
                     <separator/>
 
                     <group expand="1" string="Group By">
@@ -25,9 +24,11 @@
                     <group expand="1" string="Group By">
                         <filter string="Email" name="group_email" context="{'group_by':'email'}"/>
                     </group>
-                    
-                    
 
+                    <group expand="1" string="Group By">
+                        <filter string="Monthly" name="group_converted_date" context="{'group_by':'converted_date:month'}"/>
+                    </group>
+                    
                 </search>
             </field>
         </record>
@@ -116,7 +117,7 @@
                                 <field name="wf_apps_web_history_ids">
                                     <tree string="Uses Apps and Website">
                                         <field name="title"/>
-                                        <field name="icon"/>
+                                        <field name="icon" widget="url"/>
                                         <field name="productivity_status"/>
                                         <field name="window_title"/>
                                         <field name="total_second"/>
@@ -127,8 +128,8 @@
                             <page name="wf_screenshot_ids" string="Screenshot">
                                 <field name="wf_screenshot_ids">
                                     <tree string="Screenshot">
-                                        <field name="image_url"/>
-                                        <field name="thumbnail_url"/>
+                                        <field name="image_url" widget="url"/>
+                                        <field name="thumbnail_url" widget="url"/>
                                         <field name="app_title"/>
                                         <field name="app_icon"/>
                                         <field name="date"/>
