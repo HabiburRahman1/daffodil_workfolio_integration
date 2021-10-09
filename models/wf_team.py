@@ -121,7 +121,10 @@ class WorkfolioTeam(models.Model):
                 res_user = self.env['res.users'].sudo().search([('email', '=', employee_time_sheet_dict['email'])],
                                                                limit=1)
                 if res_user:
-                    employee_time_sheet_dict['employee_id'] = res_user.employee_id.id
+                    try:
+                        employee_time_sheet_dict['employee_id'] = res_user.employee_id.id
+                    except Exception as e:
+                        print(e) 
                     employee_time_sheet_dict['user_id'] = res_user.id
 
                 is_employee_exist = self.env['wf.employee'].sudo().search(
